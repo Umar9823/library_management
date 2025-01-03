@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const multer = require('multer');
 const admin = require('firebase-admin');
-const sendMail = require('../utils/sendMail');
 
 const router = express.Router();
 
@@ -15,6 +14,7 @@ const upload = multer({ storage });
 
 // Route: Serve issueForm.html from public folder
 router.get('/formissue', (req, res) => {
+    console.log('Serving formissue');
     res.sendFile(path.join(__dirname, '../public', 'issueForm.html'));
 });
 
@@ -23,6 +23,7 @@ router.post('/issueBook', upload.single('bookImage'), async (req, res) => {
     try {
         const { title, author, name, email, phone } = req.body;
 
+        // New book details
         const newBook = {
             title,
             author,
@@ -31,11 +32,16 @@ router.post('/issueBook', upload.single('bookImage'), async (req, res) => {
             isReturned: false,
         };
 
+        // Save book data in Firestore
         await req.db.collection('books').add(newBook);
+
+        // Redirect to the home page
         res.redirect('/');
     } catch (error) {
+        console.error('Error issuing book:', error);
         res.status(500).send('Error issuing book: ' + error.message);
     }
 });
+
 
 module.exports = router;
