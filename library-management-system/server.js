@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 });
 
 // Pass Firestore instance to routes
-app.use('/api', (req, res, next) => {
+app.use((req, res, next) => {
     req.db = db;
     next();
 }, libraryRoutes);
