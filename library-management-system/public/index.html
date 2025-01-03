@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Management - Issued Books</title>
+    <script>
+        function redirectToIssueForm() {
+            window.location.href = "/formissue";
+        }
+    </script>
 </head>
 <body>
     <h1>Issued Books</h1>
@@ -21,32 +26,6 @@
             <!-- Dynamically generated rows will go here -->
         </tbody>
     </table>
-    <a href="/formissue">Issue a New Book</a>
-
-    <!-- <script>
-        // Example function to fetch and display issued books
-        async function loadIssuedBooks() {
-            const response = await fetch('/api/issued-books');  // Assuming an API route for issued books
-            const books = await response.json();
-            
-            const tableBody = document.getElementById('issuedBooksTable');
-            tableBody.innerHTML = '';  // Clear any existing rows
-
-            books.forEach(book => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${book.title}</td>
-                    <td>${book.author}</td>
-                    <td>${book.user.name} (${book.user.email})</td>
-                    <td>${book.issuedDate}</td>
-                    <td>${book.returnDate}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
-
-        // Load books when the page is ready
-        window.onload = loadIssuedBooks;
-    </script> -->
+    <button onclick="redirectToIssueForm()">Issue a New Book</button>
 </body>
 </html>
